@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<style>
+.tt {
+	font-family: "Monospace";
+}
+.removed {
+	//text-decoration: line-through;
+	//color:red;
+	display:none;
+}
+</style>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>CSE 428S: Multi-Paradigm Programming in C++</title></head>
+
+<h2 style="text-align: center;">CSE 428S: Studio 3<br></h2>
+<h2 style="text-align: center;">Control Flow and Debugging</h2>
+
+<hr style="width: 100%; height: 2px;">
+
+  <p>In today's studio you will explore how to track program control flow and
+    corresponding changes to program state, using the <code>gdb</code> debugger.
+    Specifically, you will build and run and trace a program that implements a
+    simple prefix addition calculator for expressions involving symbols for an
+    addition (<code>+</code>) operator and unsigned integers, which are given to
+    the program as command line arguments.
+    Your experience running using <code>gdb</code> to trace program behavior will
+    help you prepare to dubug program behavior in your subsequent lab and studio
+    assignments this semester, especially if you complete the optional enrichment
+    exercises where you will trace the program's behavior using  <code>gdb</code>
+    in  <code>emacs</code>, or using the Visual Studio debugger available on the
+    windows machines in some of the teaching labs in Urbauer Hall.
+
+<hr style="width: 100%; height: 2px;"><p>
+<p>
+Please complete the following required exercises. I encourage you to please 
+work in groups of 2 or 3 people on each studio (and the groups are allowed to change from studio to studio) though if you would prefer to complete any studio by yourself that is also allowed.</p>
+
+<p>As you work through these exercises, please record your answers, and when
+  you finish them please log into Canvas, select this course in this semester, and
+  then upload a <code>.txt</code> file containing your answers on the Canvas page
+  for this studio assignment. <strong>Only one submission per team, please, and if
+  you need to re-submit it the person who originally submitted the studio should
+  please be the one to do that.</strong></p>
+
+<p><strong> Make sure that the name of each person who worked on these exercises
+is listed in the first answer, and make sure you number each of your responses
+so it is easy to match your responses with each exercise.</strong></p>
+<hr style="width: 100%; height: 2px;"><p>
+
+<p><h3>Required Exercises</h3></p>
+
+<ol>
+<p><li>As the answer to the first exercise, list the names of the people who
+worked together on this studio.
+
+<li>
+<p>First, ssh into <code>shell.cec.wustl.edu</code> using your WUSTL
+  Key id and password and then use <code>qlogin</code> to log into one
+  of the Linux Lab machines and then confirm that the version of <code>g++</code>
+  there is correct (as you did in <a href="studio0.html">Studio 0</a>). Then
+  <code>cd</code> into your directory for this course this semester, create a new
+  subdirectory for this studio, and <code>cd</code> into it.
+  
+<P>Copy the <code>Makefile</code> from your <a href="studio0.html">Studio 0</a>
+  directory into that directory and update it so that it will build an executable
+  program called <code>studio3</code> from the following
+  <code><a href="studio3.h">studio3.h</a></code> header file and
+  <code><a href="studio3.cpp">studio3.cpp</a></code>) source file, both of which
+  you should also copy into that directory.
+
+<p>Compile the program, checking that the <code>Makefile</code> caused
+  <code>make</code> to pass the <code>-g</code> flag (to embed debugging information
+  for <code>gdb</code> to use) when it called <code>g++</code>. Run the compiled
+  program with a command line consisting of multiple space-separated addition
+  (<code>+</code>) operators and unsigned integers that make up a valid prefix addition
+  expression (there should be one more unsigned integer than the number of addition
+  operators, and the ith addition operator should always be to the left of the ith
+  unsigned integer). Then, immediately issue the following command to confirm that the
+  program returned 0 to indicate success:
+
+  <P><code>echo $?</code>
+
+  <P>Run the program again, but with an invalid prefix addition expression (e.g., by
+  removing one of the unsigned integers from the command line so that there are
+  too few of them, or rearranging the command line so that one of the unsigned
+  integers appears before its corresponding addition operator), and then immediately
+  issue the <code>echo $?</code> command to confirm that the program returned a
+  non-zero value to indicate failure.
+
+  <P>As the answer to this exercise please show the command lines that were used to 
+    run the program both successfully and unsuccessfully, and for each of them show
+    the output the program produced and the value it returned.
+  
+<li>
+  <p>Use the <code>gdb studio3</code> command to load the program within the
+    <code>gdb</code> debugger, and as the answer to this exercise please show
+    the lines that appeared within the terminal window where you ran that command,
+    when you did that.
+
+<li>
+  <p>Within <code>gdb</code>, issue the <code>break parse_and_compute</code> command to
+    set a breakpoint that will stop the debugger whenever the program's
+    <code>parse_and_compute</code> function is called, which it will be multiple times
+    (recursively) as the program parses and computes the prefix addition expression
+    that was given on its command line. As the answer to this exercise please show
+    the additional lines that were printed within the terminal window when you ran
+    that command.
+
+    <li>
+      <p>Within <code>gdb</code>, issue the command <code>run + 1 + 2 + 3 4 </code>
+        to run the program, and then issue the <code>continue</code> command to cause
+        the debugger to run it further until the next breakpoint is reached. As the
+        answer to this exercise please show the additional lines that were printed
+        within the terminal window when you ran those commands.
+
+<li>
+  <p>Within <code>gdb</code>, issue the <code>where</code> command to display the
+    program's call stack at the current point in its execution, and as the answer to this
+    exercise please show the additional lines that were printed within the terminal
+    window when you ran that command.
+
+<li>
+  <p>Review the source file (and/or today's
+    <a href="https://www.cse.wustl.edu/~cdgill/courses/cse428/Control_Flow_and_Debugging.pptx">lecture
+    slides</a>) to determine what the appropriate expressions are for (1) the
+    position (index) of the current command line argument that is being parsed,
+    and (2) the (C-style) string corresponding to that command line argument. 
+    Within <code>gdb</code>, then use the <code>print</code> command twice to
+    display the values of those expressions, and as the answer to this
+    exercise please show the additional lines that were printed within the terminal
+    window when you did that.
+
+    
+<p><h3>Optional Enrichment Exercises</h3></p>
+
+<li>
+  <p>Use the <code>step</code> and <code>next</code> commands within <code>gdb</code>
+    to step into and step over different statements and functions in the program.
+    As the answer to this exercise, please note any interesting things you noticed
+    when you did that, including whether you were able to step all the way down into
+    the assembly code for funtions that the program uses but that do not appear in
+    its compiled source file (e.g., that the program gets from the C++ libraries).
+    
+<li>
+  <p>Repeat any of the required or optional exercises above after opening the program
+    source
+    and header files in <code>emacs</code> and running the <code>gdb</code> debugger
+    from within <code>emacs</code> as shown in the lecture slides. As the answer to
+    this exercise please describe briefly what you did, and any useful features that
+    <code>emacs</code> provided when running the <code>gdb</code> debugger
+    from within it.
+
+<li>
+  <p>Repeat any of the required or optional exercises above after transfering the
+    program source
+    and header files onto one of the Windows machines available in the Urbauer Hall
+    teaching labs, compiling them in Visual Studio into a terminal window application
+    (you will need to add <code>#include "stdafx.h"</code> to the top of your source
+    file), and then stepping through the program using Visual Studio's debugging
+    features.  As the answer to this exercise please describe briefly what you did,
+    and any useful features that Visual Studio provided when debugging your program.
+
+</ol>
+
+	<h2>Things to Turn In:</h2>
+	
+	<p>For this studio, please turn in the following:</p>
+
+	<ul>
+	  <li>A file with your answers to all the required exercises above,
+            and to any of the optional enrichment exercises that you chose to
+            complete.</li>
+	</ul>
+
+<hr style="width: 100%; height: 2px;"><p>
