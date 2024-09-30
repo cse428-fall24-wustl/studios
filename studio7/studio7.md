@@ -1,4 +1,4 @@
-# CSE428 Studio 4
+# CSE428 Studio 7
 
 ## Q1
 

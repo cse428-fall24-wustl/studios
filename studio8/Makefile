@@ -4,13 +4,13 @@ EXECUTABLE	= main
 #		Source (.cpp) files you want to compile
 #		(NOTE: Don't include header (.h) files, or any source (.cpp) files
 #		that only contain template class method definitions.)
-CMPL_SRCS	= main.cpp 
+CMPL_SRCS	= main.cpp BaseClass.cpp DerivedClass.cpp
 
 #               Source files containing only template class method definitions
-TMPL_SRCS	= Compose_T.cpp 
+TMPL_SRCS	= 
 
 #               Header (.h) files
-HEADER_FILES    =  Compose_T.h
+HEADER_FILES    = header.h BaseClass.h DerivedClass.h
 
 #               Any special flags that should be set for compilation
 SPECIAL_FLAGS  = -std=c++17 -DTEMPLATE_HEADERS_INCLUDE_SOURCE
