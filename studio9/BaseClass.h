@@ -9,7 +9,7 @@ public:
     BaseClass();
     virtual ~BaseClass();
 
-    void display();
+    virtual void display();
 
     static const std::string BaseClass::*getStrPtr();
 

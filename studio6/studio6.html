@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<style>
+.tt {
+	font-family: "Monospace";
+}
+.removed {
+	//text-decoration: line-through;
+	//color:red;
+	display:none;
+}
+</style>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>CSE 428S: Multi-Paradigm Programming in C++</title></head>
+
+<h2 style="text-align: center;">CSE 428S: Studio 6<br></h2>
+<h2 style="text-align: center;">Classes</h2>
+
+<hr style="width: 100%; height: 2px;">
+
+  <p>In today's studio you will begin a series of topics focused on object-oriented
+    programming, with a basic review of C++ structs and classes, access specifications,
+    and constructors.
+
+  <p>Please complete the following required exercises. I
+encourage you to please work in groups of 2 or 3 people on each studio
+(and the groups are allowed to change from studio to studio) though if
+you would prefer to complete any studio by yourself that is also
+allowed.</p>
+
+<p>As you work through these exercises, please record your answers, and when
+  you finish them please log into Canvas, select this course in this semester, and
+  then upload a <code>.txt</code> file containing your answers on the Canvas page
+  for this studio assignment. <strong>Only one submission per team, please, and if
+  you need to re-submit it the person who originally submitted the studio should
+  please be the one to do that.</strong></p>
+
+<p><strong> Make sure that the name of each person who worked on these exercises
+is listed in the first answer, and make sure you number each of your responses
+so it is easy to match your responses with each exercise.</strong></p>
+<hr style="width: 100%; height: 2px;"><p>
+
+<p><h3>Required Exercises</h3></p>
+
+<ol>
+<p><li>As the answer to the first exercise, list the names of the people who
+worked together on this studio.
+    
+<li><p>First, ssh into <code>shell.cec.wustl.edu</code> using your WUSTL
+  Key id and password and then use <code>qlogin</code> to log into one
+  of the Linux Lab machines and then confirm that the version of <code>g++</code>
+  there is correct (as you did in <a href="studio0.html">Studio 0</a>). Then
+  <code>cd</code> into your directory for this course this semester, create a new
+  subdirectory for this studio, and <code>cd</code> into it.
+
+  <P>Create a new header file and source file in your directory for this studio,
+    and in the header file declare a struct with two integer member variables. Do not
+    add <code>private</code>, <code>protected</code>, or <code>public</code>
+    access specifications, or any constructors, methods, or operators, or initialize
+    the member variables – we will first look at basic semantics of a struct or class
+    and will then explore additional features.
+
+  <P>Add a new source file to your directory for this studio, and in it (1) include
+    the newly created header file and (2) define your program's main function and
+    in it declare a variable of the struct type and then print out its member
+    variables using cout.
+
+  <p>Copy over the <code>Makefile</code> from one of your previous studios into
+    your directory and update it appropriately, then try to build and run your
+    program and note any compiler warnings or compiler errors that were given.
+
+    <P>Then (in the header and source files for the struct, respectively)
+    declare and define a default constructor that initializes the
+    member variables to 0 using the base class / member initialization
+    list (not the constructor body).
+
+     <P>Again try to build and run your program, and
+       as the answer to this exercise, please describe what happened before and
+       after you added the constructor (including any compiler warnings or errors you saw
+       in either case, and if you are able to get either variation
+    to build and run, what values were printed out and where you think they came from.
+
+<li><p>Change the declaration in the header file from a struct to a class, still
+       without adding any private, public, or protected declarations, and try to build
+       and run your program.  Then try putting a public vs. protected vs. private
+       declaration before the member variables within the class declaration, and try
+       to build and run your program.  As the answer to this exercise, please explain
+       the difference between a struct vs. a class and describe how that difference
+       explains which access specifications (public vs. protected vs. private) need to
+       be used to make member variables (and member functions) visible outside a class.
+
+<li><p>Change the class declaration to have private member variables, and for each of
+        the member variables add a public "accessor" member function (which takes no
+        parameters and returns an <code>int</code>) and a public "mutator" member
+        function (which takes an <code>int</code> type  return that assigns the
+        member variable the passed value and then returns a reference to the current
+        object that contains the member variables (e.g., <code>return *this;</code>.
+        Declare the accessor methods to be <code>const</code> (by putting the keyword
+        <code>const</code> after the closing parenthesis).
+
+      <P>In your program's main function, try calling the accessor and mutator
+        methods on const and non-const objects of the class type and remove statements
+        that do not work, leaving the ones that do (the accessors should work on both,
+        but the mutators should only work on non-const objects). Use those methods
+        to print out the member variables’ original values, and for non-const objects
+        to set those values to something different (and then print out the new values
+        of the member variables). As the answer to this exercise, please show (1) your
+        code for this and (2) what the program printed out.
+        
+<li><p>In your main function, try out the following operations (using the class name
+    and accessors and mutators from your declaration, rather than as given below),
+    printing out the values of the variables after each line.<P>
+    
+    <code>MyClass m; // default construction</code><P>
+    <code>cout << "m.x is " << m.x() << " and m.y is " << m.y() << endl;</code><P>
+    <code>m.x(7).y(3); // chained use of mutator functions</code><P>
+    <code>cout << "m.x is " << m.x() << " and m.y is " << m.y() << endl;</code><P>
+    <code>MyClass n(m); // copy construction</code><P>
+    <code>cout << "n.x = " << n.x() << " and n.y = " << n.y() << endl;</code><P>
+
+    Build and run your program and as the answer to this exercise, please explain what
+    each of the compiler-supplied (i.e., it provides them if you don’t) default
+    constructor and copy constructor is doing, based on the output you saw.
+
+<li><p>Declare and define (in your header and source files respectively) a copy
+    constructor for the class that takes a const reference to another object of the
+    same type and initializes its member variables (again in the base-member
+    initialization list) to have the values of the member variables of the object
+    from which the current object is being constructed; make sure to use the
+    base-member initialization list for initializing member variables in the copy
+    constructor (instead of assigning them in the body of the constructor).
+
+    <p>Declare and define a default constructor using <code>= default;</code></p>
+
+    <P>Compile and run your program, and as the answer to this exercise, please
+      explain what happens compared to the compiler-supplied version of the copy
+      constructor that you saw in the previous exercise, when you run the same code
+      statements as above.
+
+<li><p>Add statements to your default constructor and copy constructor that
+print out (1) the signature of each of them, (2) the memory address
+of the object (<code>this</code>), and (3) the values of the object's member
+    variables, to <code>cout</code>.
+
+    <P>Add a function that takes an object of your class by value and returns that
+    object by value (i.e., the function's return type is the class type), and then
+      in your main function call that function (1) with the original object
+      immediately after you default construct it but before its mutator member functions
+      are called, (2) with the original object immediately after its mutator member
+      functions are called, and then (3) with the copy constructed object immediately
+      after it is created.
+
+    <P>Build and run your program, and as the answer to this exercise, please
+       say which of the constructor methods are called, and in what order,
+       when objects are created in main, are passed by value and are returned by value.
+
+<li><p>As the answer to
+this exercise, please try out the following using the code you
+developed for the previous exercise, and answer each question. What happens if
+you declare your default constructor private but do not define it? Can
+you still create variables of that type? Does the compiler still
+supply a default constructor that can be used by statements in your
+main function?
+
+</ol>
+	<h2>Things to Turn In:</h2>
+	
+	<p>For this studio, please turn in the following:</p>
+
+	<ul>
+		<li>A file with your answers to the required exercises above.</li>
+	</ul>
+  </p>
+
+<hr style="width: 100%; height: 2px;"><p>
+Changes to this page since it was assigned:
+<ul>
+  <li>Added a clarification to step 6 - a default constructor is needed (6:45 PM 2024-09-18)</li>
+</ul>

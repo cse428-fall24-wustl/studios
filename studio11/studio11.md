@@ -50,3 +50,26 @@ Destructor for MyClass is called. The string's value is: hello, object's address
 Destructor for MyClass is called. The string's value is: hello, object's address is 0x7ffc796a33f0.
 Destructor for MyClass is called. The string's value is: hello, object's address is 0x7ffc796a3410.
 ```
+
+## Q6
+```bash
+[l.tingjun@iht32-1508.sif studio11]$ ./main
+Parameterized constructor for MyClass is called. The string's value is: Hello, object's address is 0x1d4ceb0.
+Destructor for MyClass is called. The string's value is: Hello, object's address is 0x1d4ceb0.
+```
+
+## Q7
+```bash
+Parameterized constructor for MyClass is called. The string's value is: Hello, object's address is 0x120deb0.
+The string's value is: Hello, object's address is 0x120deb0.
+Destructor for MyClass is called. The string's value is: Hello, object's address is 0x120deb0.
+```
+
+## Q8
+```bash
+[l.tingjun@iht32-1508.sif studio11]$ ./main
+Parameterized constructor for MyClass is called. The string's value is: Hello, object's address is 0x1207eb0.
+The string's value is: Hello, object's address is 0x1207eb0.
+The string's value is: Hello, object's address is 0x1207eb0.
+Destructor for MyClass is called. The string's value is: Hello, object's address is 0x1207eb0.
+```

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<style>
+.tt {
+	font-family: "Monospace";
+}
+.removed {
+	//text-decoration: line-through;
+	//color:red;
+	display:none;
+}
+</style>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>CSE 428S: Multi-Paradigm Programming in C++</title></head>
+
+<h2 style="text-align: center;">CSE 428S: Studio 5<br></h2>
+<h2 style="text-align: center;">Functional Programming</h2>
+
+<hr style="width: 100%; height: 2px;">
+
+  <p>In today's studio you will explore several more advanced features of C++ that
+    support functional programming, including: function pointers, lambdas, and the
+    standard bind function.  These features can be used to make containers, algorithms,
+    and programs more powerful and flexible by combining, modifying, and using functions
+    as entities in their own right.
+
+<hr style="width: 100%; height: 2px;"><p>
+<p>
+Please complete the following required exercises. I encourage you to please 
+work in groups of 2 or 3 people on each studio (and the groups are allowed to change from studio to studio) though if you would prefer to complete any studio by yourself that is also allowed.</p>
+
+<p>As you work through these exercises, please record your answers, and when
+  you finish them please log into Canvas, select this course in this semester, and
+  then upload a <code>.txt</code> file containing your answers on the Canvas page
+  for this studio assignment. <strong>Only one submission per team, please, and if
+  you need to re-submit it the person who originally submitted the studio should
+  please be the one to do that.</strong></p>
+
+<p><strong> Make sure that the name of each person who worked on these exercises
+is listed in the first answer, and make sure you number each of your responses
+so it is easy to match your responses with each exercise.</strong></p>
+<hr style="width: 100%; height: 2px;"><p>
+
+<p><h3>Required Exercises</h3></p>
+
+<ol>
+<p><li>As the answer to the first exercise, list the names of the people who
+worked together on this studio.
+
+<li>
+<p>First, ssh into <code>shell.cec.wustl.edu</code> using your WUSTL
+  Key id and password and then use <code>qlogin</code> to log into one
+  of the Linux Lab machines and then confirm that the version of <code>g++</code>
+  there is correct (as you did in <a href="studio0.html">Studio 0</a>). Then
+  <code>cd</code> into your directory for this course this semester, create a new
+  subdirectory for this studio, and <code>cd</code> into it.
+
+<P>Define a main function for your program, and in it declare two variables of type
+  <code>const char *</code> that are initialized with two different C-style string
+  constants (e.g., <code>"Hello, "</code> and <code>"World!"</code>).
+
+<P>At the top of the source file that contains your program's main function,
+  include the <code>&lt;cstring&gt;</code> library header file, which declares
+  the standard functions that C++ provides for C-style strings.
+
+<P>You should then write statements that (1) print out those C-style strings to the
+  standard output stream, with each C-style string clearly delimited with additional
+  characters in the output (e.g., by inserting <code>"\""</code> into the output
+  stream before and after each C-style string)
+  to let you see where each string begins and ends (especially if either of them
+  starts or ends with a whitespace character); and (2) use the <code>std::strlen</code>
+  function to print out how long each of those C-style strings is.
+
+<p>Compile and run your program, and as the answer to this exercise please show
+  (1) the code you wrote for this exercise and (2) the output your program
+  produced by running it.
+  
+<li>
+  <P>In the main function of your program declare a pointer to a function that
+     takes a <code>const char *</code> as its only parameter and returns a value
+     of type <code>std::size_t</code>.
+    
+  <P>Initialize that pointer to point to <code>std::strlen</code> and modify your
+    statements that print out the length of the C-style strings so that instead
+    of calling <code>std::strlen</code> directly they dereference the function pointer
+    and call the function that the pointer points to. <strong>Note that due to operator
+    precedence you'll need to surround the dereference with parentheses.</strong>
+    
+  <p>Compile and run your program, and confirm that you see the same output
+    as you did in the previous exercise. As the answer to this exercise please show
+    the code that declares, initializes, and dereferences the function pointer.
+    
+<li><p>At the top of the source file that contains your program's main function,
+  include the <code>&lt;cmath&gt;</code> library header file, which declares
+  the standard mathematical functions that C++ provides, including those
+  originally provided by C.
+  
+  <P>In your main function declare a variable of type <code>float</code> and initialize
+     it (in that same line) with a non-zero value.
+
+  <P>Then, output the value of the variable and the result of calling the 
+     <code>std::sin</code> function with the result of calling the 
+     <code>std::cos</code> function with the
+     <code>float</code> variable you just declared.
+<strong>Instead of storing the result that is returned by the call to the 
+<code>std::cos</code> function in a variable and then passing that variable
+into the call to the <code>std::sin</code> function, wrap the call to the
+<code>std::sin</code> function around the call to the <code>std::cos</code> function.
+</strong>
+
+  <p>Compile and run your program, and as the answer to this exercise please show
+    the code that you wrote for this exercise and the output it produced.
+
+<li>
+  <p>At the top of the source file that contains your program's main function,
+  include the <code>&lt;functional&gt;</code> library header file, which declares
+  a number of functions and templates for functional programming, which we will
+  use in the rest of the exercises in this studio.
+
+<P>In your program's main function, declare a variable by appropriately instantiating
+   the standard <code>function</code> template and initialize it with a lambda based
+   on the <code>std::sin</code> function, as illustrated in today's lecture slides.
+
+   <P>Similarly, also declare another variable of the same callable type that is
+      initialized with a lambda based on the <code>std::cos</code> function.
+
+  <P>Then, output the value of the <code>float</code> variable from the previous 
+     exercise and the result of calling the first variable you declared for this 
+     exercise with the result of calling the second variable you declared for this 
+     exercise with the <code>float</code> variable from the previous exercise.
+<strong>In this exercise as well, please chain the calls to those variables,
+by wrapping the call to the first variable around the call to the second one.
+</strong>
+
+  <p>Compile and run your program, and confirm that you see the same output
+    as you did in the previous exercise. As the answer to this exercise please show
+    the code that you wrote for it.
+
+<li>
+  <p>Copy the following template source and template header files into your directory
+     for this studio exercise: <code><a href="Compose_T.cpp">Compose_T.cpp</a></code>
+     and <code><a href="Compose_T.h">Compose_T.h</a></code>.  These files were derived
+     directly from a code fragment that was provided in the 
+<a href="https://stackoverflow.com/questions/19071268/function-composition-in-c-c11">function composition in C++ / C++11</a> discussion on stack overflow.  Note that this 
+exercise considers a fairly basic notion of function composition, and many more
+ sophisticated ideas are explored in that discussion.
+
+<P>Update the Makefile in your directory for this studio exercise so that the
+<code>SPECIAL_FLAGS</code> line contains the flag
+<code>-DTEMPLATE_HEADERS_INCLUDE_SOURCE</code>, <code>Compose_T.cpp</code> is listed
+ on the <code>TMPL_SRCS</code> line, and <code>Compose_T.h</code> is listed on the
+ <code>HEADER_FILES</code> line.
+
+<P>In your main function, declare a variable that has an <code>auto</code> type 
+(which will ask the compiler to determine its appropriate callable type) and 
+initialize that variable with a call to the <code>compose</code> template function 
+that is declared and defined (respectively) in <code>Compose_T.h</code> and <code>Compose_T.cpp</code>, with the two varibles you declared in the previous exercise
+(using the one based on <code>std::sin</code> as the first argument and the one based
+on <code>std::cos</code> as the second argument). <strong>Note that the syntax for
+invoking the <code>compose</code> function template does not require additional
+type information to be specified - it is simply of the form 
+<code>compose(f,g)</code>.</strong>
+
+<P>Then, output the value of the <code>float</code> variable from the previous
+     exercises and the result of calling the variable you declared for this 
+     exercise with that <code>float</code> variable.
+
+  <p>Compile and run your program, and confirm that you see the same output
+    as you did in the previous exercise. As the answer to this exercise please show
+    the code that you wrote for it.
+
+<li>
+  <p>In your main function, again declare a variable that has an <code>auto</code> type
+     but this time initialize it by passing the variable you declared in the previous
+     exercise and the <code>float</code> variable from the previous exercises, into a
+     call to the <code>std::bind</code> function.
+
+<P>Then, output the value of a call to the variable you declared for this 
+     exercise (using its function call operator, which takes no parameters).
+
+  <p>Compile and run your program, and confirm that you see the same output
+    as you did in the previous exercise. As the answer to this exercise please show
+    the code that you wrote for it.
+
+</ol>
+
+	<h2>Things to Turn In:</h2>
+	
+	<p>For this studio, please turn in the following:</p>
+
+	<ul>
+		<li>A file with your answers to the required exercises above.</li>
+	</ul>
+
+<hr style="width: 100%; height: 2px;"><p>

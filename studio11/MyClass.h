@@ -17,7 +17,7 @@ public:
     MyClass(const MyClass &other);
     MyClass(const string &str);
     MyClass &operator=(const MyClass &other);
-    ~MyClass();
+    virtual ~MyClass();
     virtual void displayVal() const;
 };
 
