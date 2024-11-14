@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<style>
+.tt {
+	font-family: "Monospace";
+}
+.removed {
+	//text-decoration: line-through;
+	//color:red;
+	display:none;
+}
+</style>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>CSE 428S: Multi-Paradigm Programming in C++</title></head>
+
+<h2 style="text-align: center;">CSE 428S: Studio 12<br></h2>
+<h2 style="text-align: center;">Types and Generic Programming</h2>
+
+<hr style="width: 100%; height: 2px;">
+
+  <p>Today's lecture and studio focus on type declaration and usage issues that may
+    arise when specifying and using different expressions, variables, and parameters.
+    These issues are essential to the generic programming paradigm that we will
+    consider for the rest of this semester, and addressing them establishes foundations
+    for how type-related issues can be managed in C++ which we will expand on in
+    later topics.
+    
+<hr style="width: 100%; height: 2px;"><p>
+<p>
+  Please complete the following required exercises. I encourage you to please work in
+  groups of 2 or 3 people on each studio (and the groups are allowed to change from
+  studio to studio) though if you would prefer to complete any studio by yourself that
+  is also allowed.</p>
+
+<p>As you work through these exercises, please record your answers, and when
+  you finish them please log into Canvas, select this course in this semester, and
+  then upload a <code>.txt</code> file containing your answers on the Canvas page
+  for this studio assignment. <strong>Only one submission per team, please, and if
+  you need to re-submit it the person who originally submitted the studio should
+  please be the one to do that.</strong></p>
+
+<p><strong> Make sure that the name of each person who worked on these exercises
+is listed in the first answer, and make sure you number each of your responses
+so it is easy to match your responses with each exercise.</strong></p>
+<hr style="width: 100%; height: 2px;"><p>
+
+<p><h3>Required Exercises</h3></p>
+
+<ol>
+<p><li>As the answer to the first exercise, list the names of the people who
+worked together on this studio.
+
+<li><p>First, ssh into <code>shell.cec.wustl.edu</code> using your WUSTL
+  Key id and password and then use <code>qlogin</code> to log into one
+  of the Linux Lab machines and then confirm that the version of <code>g++</code>
+  there is correct (as you did in <a href="studio0.html">Studio 0</a>). Then
+  <code>cd</code> into your directory for this course this semester, create a new
+  subdirectory for this studio, and <code>cd</code> into it.
+  
+  <P>Copy the <code>Makefile</code> from one of your previous studios into that
+    directory, and add a source file for your program's main function.  As you
+    work on this studio, please update the Makefile as needed so that it will build an
+    executable program called <code>studio12</code> from the files in that directory.
+
+  <P>Add a source file to your directory, and in it define a main function that declares
+    the following variables on separate lines of code:</P>
+    
+    <ol>
+      <li>A <code>const int</code>
+        variable initialized with the value 0</li>
+      <li>A non-const <code>int</code> variable
+        initialized with the value 1</li>
+      <li>A <code>const</code> pointer to a
+        <code>const int</code> variable initialized with the address of the
+        <code>const int</code> variable</li>
+      <li>A <code>const</code> pointer to a
+        <code>const int</code> variable initialized with the address of the non-const
+        <code>int</code> variable</li>
+      <li>A <code>const</code> pointer to a non-const
+        <code>int</code> variable initialized with the address of the
+        <code>const int</code> variable</li>
+      <li>A <code>const</code> pointer to a
+        non-const <code>int</code> variable initialized with the address of the
+        non-const <code>int</code> variable</li>
+      <li>A non-const pointer to a
+        <code>const int</code> variable initialized with the address of the
+        <code>const int</code> variable</li>
+      <li>A non-const pointer to a
+        <code>const int</code> variable initialized with the address of the non-const
+        <code>int</code> variable</li>
+      <li>A non-const pointer to a non-const
+        <code>int</code> variable initialized with the address of the
+        <code>const int</code> variable</li>
+      <li>A non-const pointer to a
+        non-const <code>int</code> variable initialized with the address of the
+        non-const <code>int</code> variable</li>
+    </ol>
+
+    <p>
+    The main function should then (in separate lines of code) print to <code>cout</code>
+    the values of the <code>const int</code> and non-const <code>int</code> variables,
+    and for each of the pointers the address it contains followed by the value of what
+    it points to.
+    </p>
+    
+  <P>Try to build your program, and comment out any lines that will not compile.
+    As the answer to this exercise please show the lines that had to be commented out,
+    and for each of them explain briefly why it could not be compiled.
+
+   <li>
+     <p>In your main function, after the output statements that remain, write separate
+       statements (on separate lines of code) that use the prefix <code>++</code>
+       operator (which is built-in for <code>int</code> and pointer types) to modify
+       the value of each of the variables whose declarations were not commented out,
+       and for the pointer variables add a separate statement that modifies what the
+       pointer points to.
+
+     <P>Try to build your program, and again comment out any of the newly added lines
+       that will not compile.
+    As the answer to this exercise please show the lines that had to be commented out,
+    and for each of them explain briefly why it could not be compiled.
+
+   <li>
+     <p>In your main function, after the declaration of each of the integer and pointer
+       variables, add another declaration (on a separate line of code) for another
+       variable that is declared using the <code>auto</code> type specifier and is
+       initialized with the original variable.
+
+       <P>For each of those variables that was declared using the <code>auto</code> type
+       specifier, use the prefix <code>++</code> operator to determine whether or not
+       it can be modified (and in the case of pointer types also to determine whether
+       or not what it points to can be modified).
+
+     <P>Try to build your program, and again comment out any of the newly added lines
+       that will not compile.
+       As the answer to this exercise please explain whether or not either low-level
+       const or top-level const properties were discarded in any of the declarations
+       that used the <code>auto</code> type specifier and if they were show the
+       declaration and explain briefly which of them was discarded and how you know
+       that.
+
+
+    <li>
+      <p>In your main function, replace the <code>auto</code> type specifier with the
+        the <code>decltype</code> type specifier in each of the declarations that
+        you added in the previous exercise.
+
+      <P>For each of the variables in those declarations, again use the prefix
+        <code>++</code> operator to determine whether or not it can be modified
+        (and in the case of pointer types also to determine whether
+       or not what it points to can be modified).
+
+     <P>Try to build your program, and again comment out any of the newly added lines
+       that will not compile. As the answer to this exercise please explain whether
+       (and if so how) the use of the <code>decltype</code> type specifier differed from
+       the use of the <code>auto</code> type specifier, in terms of whether or not
+       either low-level const or top-level const properties were discarded in any of
+       the declarations.
+
+   <li>
+     <p>Add typedefs for the following types to your main program: <code>int</code>,
+       <code>const int</code>, <code>const</code> pointer to <code>int</code>,
+       <code>const</code> pointer to <code>const int</code>, non-const pointer to
+       <code>int</code>, and non-const pointer to <code>const int</code>. 
+
+       <P>In your main function, replace the type portion of the declaration of each of
+       the integer and pointer variables with the appropriate one of those type aliases.
+       
+       <P>Compile and run your program, and as the answer to this exercise please show
+         the declarations that use those type aliases.
+
+</ol>
+
+	<h2>Things to Turn In:</h2>
+	
+	<p>For this studio, please turn in the following:</p>
+
+	<ul>
+	  <li>A file with your answers to all the required exercises above.</li>
+	</ul>
+
+<hr style="width: 100%; height: 2px;"><p>
+
+<!--
+Changes since original posting:
+
+<ul>
+  <li>
+</ul>
+-->
