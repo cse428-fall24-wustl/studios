@@ -15,7 +15,7 @@ class MyClass
     public:
         MyClass(const string &other);
         friend ostream& operator<< (ostream &os, const MyClass &myClass);
-        // bool operator < (const MyClass &rhs) const;
+        bool operator < (const MyClass &rhs) const;
         friend bool operator < (const MyClass &lhs, const MyClass &rhs);
 
 };
