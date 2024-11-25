@@ -63,3 +63,78 @@
 - `std::move` 的作用是什么？
 - 为什么移动赋值运算符对于性能至关重要？
 - 移动后的对象在移动操作后应确保什么？
+| 时间t | 状态 | P(qt=Si O) | 
+|------|------|--------------| 
+| t=1 | C1 | 0 |
+ | t=1 | C2 | 1 | 
+ 
+ | t=2 | C1 | 94/181 | 
+ | t=2 | C2 | 87/181 | 
+ | t=3 | C1 | 126/181 |
+  | t=3 | C2 | 55/181 | 
+  | t=4 | C1 | 130/181 |
+   | t=4 | C2 | 51/181 |
+
+
+## \( Y_l^m(\theta, \phi) \) : Spherical harmonic function, like sin and cos 
+## \( l \) and \( m \) : frequency mode and order of the spherical harmonic function
+
+
+**Convolution in the frequency domain**:
+
+- Using the convolution theorem, the convolution operation on the sphere is converted into a pointwise multiplication in the frequency domain. The spherical convolution theorem is as follows:
+
+  \[
+  F[\kappa ⋆ u](l, m) = \sqrt{\frac{4\pi}{2l + 1}} F[u](l, m) \cdot F[\kappa](l, 0)
+  \]
+
+  where:
+  ## \( F[\kappa ⋆ u](l, m) \) : Spherical harmonic transform of the convolution result.
+  ## \( F[u](l, m) \) : Spherical harmonic transform of the input data.
+  ## \( F[\kappa](l, 0) \) : Spherical harmonic transform of the convolution kernel.
+
+- To make the convolution process learnable, the filter weights \( F[\kappa](l, 0) \) are replaced with learnable parameters \( \tilde{\kappa}_\vartheta(l) \). The resulting SFNO layer can be expressed as:
+
+  \[
+  K_\vartheta[u] = F^{-1}[\tilde{\kappa}_\vartheta \cdot F[u]]
+  \]
+
+## \( F[\kappa](l, 0) \) are replaced with learnable parameters \( \tilde{\kappa}_\vartheta(l) \)
+
+  This formula means that a pointwise multiplication is performed for each frequency \( l \), and then an inverse spherical harmonic transform is applied to return to the spatial domain.
+
+**Inverse Spherical Harmonic Transform (ISHT)**:
+
+- The processed data is converted back from the frequency domain to the spatial domain to obtain the final output. This step is achieved through the inverse spherical harmonic transform (ISHT), similar to the inverse Fourier transform:
+
+  \[
+  u'(\theta, \phi) = \sum_{l=0}^{L} \sum_{m=-l}^{l} \hat{u}'(l, m) Y_l^m(\theta, \phi)
+  \]
+
+  where \( \hat{u}'(l, m) \) are the spherical harmonic coefficients after convolution, and \( Y_l^m(\theta, \phi) \) are the spherical harmonic functions.
+
+  # $  u(\theta, \phi) $
+
+  ### Assume-Negative Full (AN-Full)
+
+- **Explanation**:
+  - This loss function assumes that species are absent from most locations, treating those as negative samples.
+  - It assigns higher weights to positive samples where the species are observed, and lower weights to locations where the species are not observed (assumed negative).
+
+- **Formula**:
+  \[
+  L_{\text{AN-full}}(\hat{y}, y) = -\frac{1}{S} \sum_{s=1}^{S} \left[1[y_s=1]\alpha \log(\hat{y}_s) + 1[y_s=0] \log(1 - \hat{y}_s) + \log(1 - \hat{r}_s)\right]
+  \]
+## \( \hat{y}_s \) represents the predicted probability at location \( s \).
+## \( y_s \) is the actual label (1 indicates species presence, 0 indicates absence).
+## \( \hat{r}_s \) is a predicted value sampled randomly from locations, used to enhance the diversity of negative samples.
+
+## \( \alpha \) is a factor that adjusts the weight of positive samples.
+
+- **Example**:
+  Suppose we have species distribution predictions for three locations:
+  - Location 1: \( y_1 = 1 \), \( \hat{y}_1 = 0.9 \) (species is present, high prediction).
+  - Location 2: \( y_2 = 0 \), \( \hat{y}_2 = 0.2 \) (species is absent, low prediction).
+  - Location 3: Random sampling, \( \hat{r}_3 = 0.1 \).
+
+  This loss function calculates the log loss for both positive and negative samples to address the imbalance in the data.
